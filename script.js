@@ -26,10 +26,10 @@ const DomElement = function (selector, height, width, bg, fontSize) {
       const element = document.createElement("p");
       element.setAttribute("id", this.selector.slice(1));
       element.style.cssText = `
-        height: ${this.height + "px"};
-        width: ${this.width + "px"};
+        height: ${this.height}px;
+        width: ${this.width}px;
         background: ${this.bg};
-        font-size: ${this.fontSize + "px"};
+        font-size: ${this.fontSize}px;
         text-align: center;
       `;
       element.textContent = "Я параграф, элемент p";
