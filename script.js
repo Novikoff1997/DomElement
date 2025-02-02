@@ -19,7 +19,9 @@ const DomElement = function (selector, height, width, bg, fontSize) {
         text-align: center;
       `;
       element.textContent = "Я элемент div";
-      document.body.append(element);
+      document.addEventListener("DOMContentLoaded", () => {
+        document.body.append(element);
+      });
     } else if (this.selector.startsWith("#")) {
       const element = document.createElement("p");
       element.setAttribute("id", this.selector.slice(1));
@@ -31,13 +33,36 @@ const DomElement = function (selector, height, width, bg, fontSize) {
         text-align: center;
       `;
       element.textContent = "Я параграф, элемент p";
-      document.body.append(element);
+      document.addEventListener("DOMContentLoaded", () => {
+        document.body.append(element);
+      });
     }
   };
 };
 
-const newElement = new DomElement(".id", 200, 200, "red", 20);
-const newElement2 = new DomElement("#id", 200, 200, "yellow", 20);
+const newElement = new DomElement(".class", 100, 100, "red", 20);
 
 newElement.create();
-newElement2.create();
+
+document.addEventListener("keydown", (event) => {
+  const element = document.querySelector(newElement.selector);
+  element.style.position = "absolute";
+
+  let currentLeft = parseInt(window.getComputedStyle(element).getPropertyValue("left"));
+  let currentTop = parseInt(window.getComputedStyle(element).getPropertyValue("top"));
+
+  switch (event.key) {
+    case "ArrowLeft":
+      element.style.left = `${currentLeft - 10}px`;
+      break;
+    case "ArrowUp":
+      element.style.top = `${currentTop - 10}px`;
+      break;
+    case "ArrowRight":
+      element.style.left = `${currentLeft + 10}px`;
+      break;
+    case "ArrowDown":
+      element.style.top = `${currentTop + 10}px`;
+      break;
+  }
+});
